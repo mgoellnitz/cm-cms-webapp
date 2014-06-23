@@ -1,0 +1,115 @@
+/**
+ * Copyright (c) 2014, Martin Goellnitz
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, 
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice, 
+ *    this list of conditions and the following disclaimer in the documentation 
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors 
+ *    may be used to endorse or promote products derived from this software 
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+defaultTasks 'clean', 'build'
+
+version = '0.1-SNAPSHOT'
+ext.cm_version='7.0.29-78'
+ext.tomcat_version='7.0.54'
+
+// This repository is used for the tomcat plugin
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4'
+    }
+}
+
+apply plugin: 'war'
+// See README, the tomcat plugin is not really used right now
+apply plugin: 'tomcat'
+
+/**
+ *  coremediaUsername and coremediaPassword must be specified in your personal
+ *  gradle.properties file in your ${GRADLE_USER_HOME}. Ask the friendly
+ *  coremedia support staff for details.
+ */
+repositories {
+  mavenCentral()
+  maven { url "http://repository-tangram.forge.cloudbees.com/snapshot" }
+  maven { url "https://repository.coremedia.com/nexus/content/groups/cms" 
+    credentials {
+      username coremediaUsername
+      password coremediaPassword
+    }
+  }
+}
+
+configurations {
+  pom
+  webapp
+}
+
+dependencies {
+  webapp "com.coremedia.cms:content-management-server-config:$cm_version@zip"
+  
+  pom "com.coremedia.cms:content-management-server-config:$cm_version@pom"
+  
+  runtime configurations.pom
+  runtime "com.coremedia.cms:content-server-component:$cm_version"
+  runtime "com.coremedia.cms:base-component:$cm_version"
+  runtime "mysql:mysql-connector-java:5.1.31"
+    
+  tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcat_version"
+  tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcat_version"
+  tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcat_version") {
+    exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+  }
+}
+
+tomcat {
+    httpPort = 41080
+    httpsPort = 41088
+    enableSSL = false
+}
+
+war {
+  archiveName = 'coremedia.war'
+  // This code is ripped out of its context and is a rather too simple way
+  // to "overlay" the config-files. It is only half way working if there is
+  // only one zip in the webapp configuration.
+  FileTree cmapp
+  if (configurations.webapp.dependencies.size() > 0) {
+    String[] archiveFileNames = configurations.webapp.asPath.split(File.pathSeparator)
+    String archiveFileName = archiveFileNames[0];
+    int idx = archiveFileName.indexOf(';')
+    if (idx >= 0) {
+      archiveFileName = archiveFileName.substring(0, idx)
+    } // if
+    println "$project.name: path: $archiveFileName"
+    cmapp = zipTree(archiveFileName)
+  } else {
+    println "$project.name: ** WARNING: MISSING WAR TO ADD LOCAL FILES TO! **"
+  } // if
+  into('WEB-INF') {
+    from cmapp
+  }
+}
