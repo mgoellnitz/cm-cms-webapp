@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+
+  <include resource="logging-common.xml"/>
+
+    <!--
+    Log-Facility-Name                   | Description
+    ================================================================================================
+    trace                               | Logs sessions connected with the server
+                                        | This logging must be started using the utility
+                                        | program 'tracesession'
+    ================================================================================================
+    cap.server                          | Main log of the server
+    ================================================================================================
+    cap.server.garbagecollector         | Log of the garbage collector
+    ================================================================================================
+    cap.server.license                  | Log of the license manager
+    ================================================================================================
+    cap.server.login                    | Log of the server login method
+    ================================================================================================
+    cap.server.publisher                | Log of the publisher activities on the server
+    ================================================================================================
+    cap.server.store                    | Log of the repository database
+    ================================================================================================
+    cap.server.usermanager              | Log of the user manager
+    ================================================================================================
+    cap.server.query                    | Log of the server query
+    ================================================================================================
+    cap.server.search                   | Log of the contentserver search
+    ================================================================================================
+    cap.server.feeder                   | Log of the contentserver feeder
+    ================================================================================================
+    -->
+
+  <logger name="cap.server" level="info" additivity="false">
+    <appender-ref ref="file"/>
+  </logger>
+
+  <logger name="hox.corem.server" level="info" additivity="false">
+    <appender-ref ref="file"/>
+  </logger>
+
+  <logger name="com.coremedia" level="info" additivity="false">
+    <appender-ref ref="file"/>
+  </logger>
+
+  <root level="info">
+    <appender-ref ref="file"/>
+  </root>
+</configuration>
