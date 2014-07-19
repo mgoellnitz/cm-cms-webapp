@@ -1,2 +1,5 @@
 license.zip
+/.gradle
 /.nb-gradle/private/
+/.nb-gradle/profiles/private/
+/build/
