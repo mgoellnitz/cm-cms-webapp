@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<DocumentTypeModel xmlns="http://www.coremedia.com/2008/documenttypes"
+                   Root="AbstractContent"
+                   Name="menusite-doctypes"
+                   Title="menusite">
+   
+  <XmlGrammar Name="coremedia-richtext-1.0"
+              Root="div"
+              PublicId="-//CoreMedia//DTD Rich Text 1.0//EN"
+	      SystemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
+
+  <!-- root of all document types -->
+  <DocType Name="AbstractContent" Abstract="true">
+    <StringProperty Name="name" Length="200"/>
+  </DocType>
+
+  <!-- basic menusite doctypes -->
+  <DocType Name="Dish" Parent="AbstractContent">
+    <XmlProperty      Name="description"
+                      Grammar="coremedia-richtext-1.0"/>
+    <StringProperty   Name="ingredients"  Length="83"/>
+    <StringProperty   Name="price"        Length="20"/>
+    <StringProperty   Name="calories"     Length="20"/>
+    <LinkListProperty Name="pictures"     LinkType="Picture"/>
+  </DocType>
+
+  <DocType Name="Picture" Parent="AbstractContent">
+    <BlobProperty Name="image" MimeType="image/jpeg"/>
+  </DocType>
+
+  <DocType Name="Page" Parent="AbstractContent">
+    <LinkListProperty Name="content" LinkType="Dish"/>
+    <BlobProperty Name="image" MimeType="image/jpeg"/>
+  </DocType>
+
+</DocumentTypeModel>

@@ -1,9 +1,15 @@
-CoreMedia Content Management Server
-===================================
+CoreMedia Content Management Server for MenuSite
+================================================
 
 Demo gradle script to assemble a plain, uncustomized CoreMedia Content Management 
 server in a stripped down variant of how the original Maven based workspace layout 
 from CoreMedia does it.
+
+Additionally a CoreMedia 7 compatible version of the good old MenuSite document types 
+has been added, which is in some respects different from the original one and thus 
+cannot be derived from the old JARs provided by CoreMedia. Despite all that it still
+works with their content and serves well as a backend for the Tangram MenuSite examples
+"example-coma-spring" from the Tangram examples at https://github.com/mgoellnitz/tangram-examples
 
 Prerequisites
 -------------
