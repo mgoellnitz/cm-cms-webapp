@@ -27,23 +27,30 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import org.gradle.api.file.FileCopyDetails
+import org.gradle.api.file.FileTree
+import org.gradle.api.file.RelativePath
+
 defaultTasks 'clean', 'build'
 
 version = '0.1-SNAPSHOT'
-ext.cm_version='7.0.29-78'
-ext.tomcat_version='7.0.54'
+def cm_version='7.0.29-78'
+def tomcat_version='7.0.54'
 
 // This repository is used for the tomcat plugin
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4'
-    }
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath 'de.undercouch:gradle-download-task:1.0'
+    classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4'
+  }
 }
 
 apply plugin: 'war'
+apply plugin: 'download-task'
 // See README, the tomcat plugin is not really used right now
 apply plugin: 'tomcat'
 
@@ -111,5 +118,37 @@ war {
   } // if
   into('WEB-INF') {
     from cmapp
+    exclude 'properties/corem/contentserver.properties'
+    exclude 'properties/corem/jaas.conf'
+    exclude 'properties/corem/jndi-crowd.properties'
+    exclude 'properties/corem/publisher.properties'
+    exclude 'properties/corem/sql.properties'
   }
+
+  /** this adds the good old menusite to the server! */
+  def examplesFile = new File("$projectDir/cap-examples.jar") 
+  if (!examplesFile.exists()) {
+    download {
+      src 'https://releases.coremedia.com/cmv/16/cms/5.2.1456/cap-examples.jar'
+      dest "$projectDir"
+      onlyIfNewer true
+      username coremediaUsername
+      password coremediaPassword
+    }
+  } // if
+  
+  if (examplesFile.exists()) {
+    FileTree cmexamples = zipTree("$projectDir/cap-examples.jar")
+  
+    into('WEB-INF/config') {
+      from cmexamples
+      include 'menusite/install/config/**'
+      eachFile { FileCopyDetails fcp ->
+        def segments = fcp.relativePath.segments
+        def pathsegments = segments[3..-1] as String[]
+        pathsegments[0] = 'WEB-INF'
+        fcp.relativePath = new RelativePath(!fcp.file.isDirectory(), pathsegments)
+      } // eachFile
+    } // into
+  } // if
 }
