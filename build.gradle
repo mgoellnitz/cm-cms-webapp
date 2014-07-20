@@ -66,16 +66,12 @@ repositories {
 }
 
 configurations {
-  pom
   webapp
 }
 
 dependencies {
   webapp "com.coremedia.cms:content-management-server-config:$cm_version@zip"
   
-  pom "com.coremedia.cms:content-management-server-config:$cm_version@pom"
-  
-  runtime configurations.pom
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
   runtime "mysql:mysql-connector-java:5.1.31"
