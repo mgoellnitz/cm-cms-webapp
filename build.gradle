@@ -75,7 +75,7 @@ dependencies {
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
   runtime "mysql:mysql-connector-java:5.1.31"
-    
+  
   tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcat_version"
   tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcat_version"
   tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcat_version") {
