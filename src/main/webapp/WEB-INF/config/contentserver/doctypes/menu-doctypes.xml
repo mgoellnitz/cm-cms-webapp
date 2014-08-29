@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <DocumentTypeModel xmlns="http://www.coremedia.com/2008/documenttypes"
-                   Root="AbstractContent"
+                   Root="Document"
                    Name="menusite-doctypes"
                    Title="menusite">
    
@@ -10,27 +10,30 @@
 	      SystemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
 
   <!-- root of all document types -->
-  <DocType Name="AbstractContent" Abstract="true">
+  <DocType Name="Document" Abstract="true">
     <StringProperty Name="name" Length="200"/>
   </DocType>
 
   <!-- basic menusite doctypes -->
-  <DocType Name="Dish" Parent="AbstractContent">
+  <DocType Name="Dish" Parent="Document">
     <XmlProperty      Name="description"
                       Grammar="coremedia-richtext-1.0"/>
-    <StringProperty   Name="ingredients"  Length="83"/>
+    <StringProperty   Name="ingredients"  Length="200"/>
     <StringProperty   Name="price"        Length="20"/>
     <StringProperty   Name="calories"     Length="20"/>
     <LinkListProperty Name="pictures"     LinkType="Picture"/>
   </DocType>
 
-  <DocType Name="Picture" Parent="AbstractContent">
+  <DocType Name="Picture" Parent="Document">
     <BlobProperty Name="image" MimeType="image/jpeg"/>
   </DocType>
 
-  <DocType Name="Page" Parent="AbstractContent">
+  <DocType Name="Page" Parent="Document">
     <LinkListProperty Name="content" LinkType="Dish"/>
+    <LinkListProperty Name="categories" LinkType="Category"/>
     <BlobProperty Name="image" MimeType="image/jpeg"/>
   </DocType>
+
+  <DocType Name="Category" Parent="Document"/>
 
 </DocumentTypeModel>
