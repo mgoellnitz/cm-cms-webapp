@@ -56,7 +56,6 @@ apply plugin: 'tomcat'
  */
 repositories {
   mavenCentral()
-  maven { url "http://repository-tangram.forge.cloudbees.com/snapshot" }
   maven { url "https://repository.coremedia.com/nexus/content/groups/cms" 
     credentials {
       username coremediaUsername
