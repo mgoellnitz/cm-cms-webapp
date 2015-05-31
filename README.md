@@ -2,7 +2,7 @@ CoreMedia Content Management Server
 ===================================
 
 Demo gradle script to assemble a plain, uncustomized CoreMedia Content Management 
-server in a stripped down variant of how the original Maven based workspace layout 
+Server in a stripped down variant of how the original Maven based workspace layout 
 from CoreMedia does it.
 
 Prerequisites
@@ -20,7 +20,8 @@ Usage
 Customizing
 
 Change the values in the few config files presented in this workspace as needed. 
-E.g. the database access definetely needs some tuning. Add a license file license.zip to the properties/corem directory.
+E.g. the database access definetely needs some tuning. Add a license file license.zip 
+to the properties/corem directory.
 
 Building
 
