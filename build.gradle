@@ -32,22 +32,16 @@ import org.gradle.api.file.FileTree
 defaultTasks 'clean', 'build'
 
 version = '0.1-SNAPSHOT'
-def cm_version='7.1.8-16'
-def tomcat_version='7.0.62'
+def cm_version='7.1.9-12'
 
 // This repository is used for the tomcat plugin
 buildscript {
   repositories {
     jcenter()
   }
-  dependencies {
-    classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4'
-  }
 }
 
 apply plugin: 'war'
-// See README, the tomcat plugin is not really used right now
-apply plugin: 'tomcat'
 
 /**
  *  coremediaUsername and coremediaPassword must be specified in your personal
@@ -55,7 +49,7 @@ apply plugin: 'tomcat'
  *  coremedia support staff for details.
  */
 repositories {
-  mavenCentral()
+  jcenter()
   maven { url "https://repository.coremedia.com/nexus/content/groups/cms"
     credentials {
       username coremediaUsername
@@ -73,19 +67,7 @@ dependencies {
 
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
-  runtime "mysql:mysql-connector-java:5.1.35"
-
-  tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcat_version"
-  tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcat_version"
-  tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcat_version") {
-    exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
-  }
-}
-
-tomcat {
-    httpPort = 41080
-    httpsPort = 41088
-    enableSSL = false
+  runtime "mysql:mysql-connector-java:5.1.36"
 }
 
 war {
