@@ -29,11 +29,6 @@
  */
 import org.gradle.api.file.FileTree
 
-defaultTasks 'clean', 'build'
-
-version = '0.1-SNAPSHOT'
-def cm_version='7.1.9-12'
-
 // This repository is used for the tomcat plugin
 buildscript {
   repositories {
@@ -41,7 +36,17 @@ buildscript {
   }
 }
 
+plugins {
+  id "org.akhikhl.gretty" version "1.2.4"
+}
+
 apply plugin: 'war'
+
+defaultTasks 'clean', 'build'
+
+version = '0.1-SNAPSHOT'
+def cm_version='7.1.9-12'
+def servlet_container = project.hasProperty('container') ? "$container" : 'tomcat7' // jetty7, jetty8', jetty9, tomcat7, tomcat8
 
 /**
  *  coremediaUsername and coremediaPassword must be specified in your personal
@@ -97,4 +102,14 @@ war {
     exclude 'properties/corem/publisher.properties'
     exclude 'properties/corem/sql.properties'
   }
+}
+
+gretty {
+  // supported values:
+  servletContainer = "$servlet_container"
+  httpPort=44441
+  httpsPort=44443
+  httpsEnabled=true
+  servicePort=44490
+  statusPort=44491
 }
