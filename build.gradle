@@ -29,13 +29,6 @@
  */
 import org.gradle.api.file.FileTree
 
-// This repository is used for the tomcat plugin
-buildscript {
-  repositories {
-    jcenter()
-  }
-}
-
 plugins {
   id "org.akhikhl.gretty" version "1.2.4"
 }
@@ -63,16 +56,18 @@ repositories {
   }
 }
 
+/*
 configurations {
   webapp
 }
+*/
 
 dependencies {
   webapp "com.coremedia.cms:content-management-server-config:$cm_version@zip"
 
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
-  runtime "mysql:mysql-connector-java:5.1.37"
+  runtime "mysql:mysql-connector-java:5.1.38"
 }
 
 war {
