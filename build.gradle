@@ -30,7 +30,7 @@
 import org.gradle.api.file.FileTree
 
 plugins {
-  id "org.akhikhl.gretty" version "1.2.4"
+  id "org.akhikhl.gretty" version "1.4.0"
 }
 
 apply plugin: 'war'
