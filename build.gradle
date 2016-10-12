@@ -29,19 +29,17 @@
  */
 import org.gradle.api.file.FileTree
 
+plugins {
+  id "org.akhikhl.gretty" version "1.4.0"
+}
+
+apply plugin: 'war'
+
 defaultTasks 'clean', 'build'
 
 version = '0.1-SNAPSHOT'
 def cm_version='7.1.9-12'
-
-// This repository is used for the tomcat plugin
-buildscript {
-  repositories {
-    jcenter()
-  }
-}
-
-apply plugin: 'war'
+def servlet_container = project.hasProperty('container') ? "$container" : 'tomcat7' // jetty7, jetty8', jetty9, tomcat7, tomcat8
 
 /**
  *  coremediaUsername and coremediaPassword must be specified in your personal
@@ -58,16 +56,18 @@ repositories {
   }
 }
 
+/*
 configurations {
   webapp
 }
+*/
 
 dependencies {
   webapp "com.coremedia.cms:content-management-server-config:$cm_version@zip"
 
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
-  runtime "mysql:mysql-connector-java:5.1.36"
+  runtime "mysql:mysql-connector-java:5.1.40"
 }
 
 war {
@@ -97,4 +97,14 @@ war {
     exclude 'properties/corem/publisher.properties'
     exclude 'properties/corem/sql.properties'
   }
+}
+
+gretty {
+  // supported values:
+  servletContainer = "$servlet_container"
+  httpPort=44441
+  httpsPort=44443
+  httpsEnabled=true
+  servicePort=44490
+  statusPort=44491
 }
