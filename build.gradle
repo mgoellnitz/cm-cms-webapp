@@ -67,7 +67,7 @@ dependencies {
 
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
-  runtime "mysql:mysql-connector-java:5.1.39"
+  runtime "mysql:mysql-connector-java:5.1.40"
 }
 
 war {
