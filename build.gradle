@@ -38,7 +38,7 @@ apply plugin: 'war'
 defaultTasks 'clean', 'build'
 
 version = '0.1-SNAPSHOT'
-def cm_version='7.1.9-12'
+def cm_version='7.1.13-8'
 def servlet_container = project.hasProperty('container') ? "$container" : 'tomcat7' // jetty7, jetty8', jetty9, tomcat7, tomcat8
 
 /**
@@ -67,7 +67,7 @@ dependencies {
 
   runtime "com.coremedia.cms:content-server-component:$cm_version"
   runtime "com.coremedia.cms:base-component:$cm_version"
-  runtime "mysql:mysql-connector-java:5.1.40"
+  runtime "mysql:mysql-connector-java:6.0.5"
 }
 
 war {
