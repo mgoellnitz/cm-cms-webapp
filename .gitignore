@@ -5,3 +5,4 @@ license.zip
 /build/
 /private
 /logs
+/.nb-gradle/
