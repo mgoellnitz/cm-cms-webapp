@@ -1,12 +1,11 @@
-CoreMedia Content Management Server
-===================================
+# CoreMedia Content Management Server
 
 Demo gradle script to assemble a plain, uncustomized CoreMedia Content Management 
 Server in a stripped down variant of how the original Maven based workspace layout 
 from CoreMedia does it.
 
-Prerequisites
--------------
+
+## Prerequisites
 
 - Access to the CoreMedia Maven artifact repositories
 
@@ -14,8 +13,8 @@ Prerequisites
 
 - A prepared (MySQL) database
 
-Usage
------
+
+## Usage
 
 Customizing
 
@@ -40,8 +39,8 @@ created artifact to a tomcat container to be able to start it.
 mv build/libs/coremedia.war /some/where/my/tomcat/resides/webapps
 ```
 
-DB preparation steno
-====================
+
+## DB preparation steno
 
 Create ab account with http://www.db4free.net/ and integrate the access data into 
 the sql.properties in this workspace.

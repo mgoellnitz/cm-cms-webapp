@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014-2015, Martin Goellnitz
+ * Copyright (c) 2014-2017, Martin Goellnitz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -38,7 +38,7 @@ apply plugin: 'war'
 defaultTasks 'clean', 'build'
 
 version = '0.1-SNAPSHOT'
-def cm_version='7.1.13-8'
+def cm_version='7.1.14-12'
 def servlet_container = project.hasProperty('container') ? "$container" : 'tomcat7' // jetty7, jetty8', jetty9, tomcat7, tomcat8
 
 /**
