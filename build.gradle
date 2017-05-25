@@ -56,11 +56,10 @@ repositories {
   }
 }
 
-/*
+// prepare a configuration for the contents in archives to be aaded to the webapp
 configurations {
   webapp
 }
-*/
 
 dependencies {
   webapp "com.coremedia.cms:content-management-server-config:$cm_version@zip"
@@ -70,7 +69,7 @@ dependencies {
   runtime "mysql:mysql-connector-java:6.0.6"
 }
 
-war {
+war.doFirst {
   archiveName = 'coremedia.war'
   // This code is ripped out of its context and is a rather too simple way
   // to "overlay" the config-files. It is only half way working if there is
