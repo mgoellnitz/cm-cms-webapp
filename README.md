@@ -1,5 +1,4 @@
-CoreMedia Content Management Server for MenuSite
-================================================
+# CoreMedia Content Management Server for MenuSite
 
 Demo gradle script to assemble a plain, uncustomized CoreMedia Content Management 
 Server in a stripped down variant of how the original Maven based workspace layout 
@@ -11,8 +10,8 @@ cannot be derived from the old JARs provided by CoreMedia. Despite all that it s
 works with their content and serves well as a backend for the Tangram MenuSite examples
 "example-coma-spring" from the Tangram examples at https://github.com/mgoellnitz/tangram-examples
 
-Prerequisites
--------------
+
+## Prerequisites
 
 - Access to the CoreMedia Maven artifact repositories
 
@@ -20,8 +19,8 @@ Prerequisites
 
 - A prepared (MySQL) database
 
-Usage
------
+
+## Usage
 
 Customizing
 
@@ -46,8 +45,8 @@ created artifact to a tomcat container to be able to start it.
 mv build/libs/coremedia.war /some/where/my/tomcat/resides/webapps
 ```
 
-DB preparation steno
-====================
+
+## DB preparation steno
 
 Create ab account with http://www.db4free.net/ and integrate the access data into 
 the sql.properties in this workspace.
