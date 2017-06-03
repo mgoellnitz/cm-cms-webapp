@@ -1,8 +1,20 @@
 # CoreMedia Content Management Server
 
-Demo gradle script to assemble a plain, uncustomized CoreMedia Content Management 
-Server in a stripped down variant of how the original Maven based workspace layout 
-from CoreMedia does it.
+CoreMedia Content Management Server assembled with Gradle to illustrate, what a 
+Gradle based CoreMedia workspace might look like.
+
+This demo gradle script assembles a plain, uncustomized CoreMedia Content 
+Management Server in a stripped down variant of how the original Maven based 
+workspace layout from CoreMedia does it.
+
+It is meant as a hint that a migration from the Apache Maven build system (not 
+its dependency management and repositories) would be an advantage for 
+readability and maintence of CoreMedia workspaces.
+
+This repository in itself is feedback about the topic, but feel free to send
+any comment e.g. via the [issues][issues] section at GitHub.
+
+Find mirrors of this git repository at [gitlab][gitlab] and [github][github].
 
 
 ## Prerequisites
@@ -44,3 +56,8 @@ mv build/libs/coremedia.war /some/where/my/tomcat/resides/webapps
 
 Create ab account with http://www.db4free.net/ and integrate the access data into 
 the sql.properties in this workspace.
+
+
+[issues]: https://github.com/mgoellnitz/cm-cms-webapp/issues
+[github]: https://github.com/mgoellnitz/cm-cms-webapp
+[gitlab]: https://gitlab.com/mgoellnitz/cm-cms-webapp
